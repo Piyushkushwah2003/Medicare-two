@@ -1,0 +1,124 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/create-account.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/login.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/get-profile.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "/api/update-password.js",
+      "use": "@vercel/node"
+    },
+     {
+      "src": "/api/reset-password.js",
+      "use": "@vercel/node"
+    },
+     {
+      "src": "/api/create-post.js",
+      "use": "@vercel/node"
+    },
+     {
+      "src": "/api/get-posts.js",
+      "use": "@vercel/node"
+    },
+     {
+      "src": "/api/get-user-posts.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "/api/postaction.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "/api/followaction.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "/api/get-user-profile.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "/api/search-user.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "/api/recent-search.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/create-account",
+      "dest": "api/create-account.js",
+      "timeout": 60
+    },
+    {
+      "src": "/api/login",
+      "dest": "api/login.js",
+      "timeout": 60
+    },
+    {
+      "src": "/api/get-profile",
+      "dest": "api/get-profile.js",
+      "timeout": 60
+    },
+    {
+      "src": "/api/update-password",
+      "dest": "api/update-password.js",
+      "timeout": 60
+    },
+     {
+      "src": "/api/reset-password",
+      "dest": "api/reset-password.js",
+      "timeout": 60
+    },
+     {
+      "src": "/api/create-post",
+      "dest": "api/create-post.js",
+      "timeout": 60
+    },
+    {
+      "src": "/api/get-posts",
+      "dest": "api/get-posts.js",
+      "timeout": 60
+    },
+     {
+      "src": "/api/get-user-posts",
+      "dest": "api/get-user-posts.js",
+      "timeout": 60
+    },
+     {
+      "src": "/api/postaction",
+      "dest": "api/postaction.js",
+      "timeout": 60
+    },
+    {
+      "src": "/api/followaction",
+      "dest": "api/followaction.js",
+      "timeout": 60
+    },
+    {
+      "src": "/api/get-user-profile",
+      "dest": "api/get-user-profile.js",
+      "timeout": 60
+    },
+     {
+      "src": "/api/search-user",
+      "dest": "api/search-user.js",
+      "timeout": 60
+    },
+     {
+      "src": "/api/recent-search",
+      "dest": "api/recent-search.js",
+      "timeout": 60
+    }
+  ]
+}
