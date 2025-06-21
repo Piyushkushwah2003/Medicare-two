@@ -18,7 +18,20 @@ const userSchema = new mongoose.Schema({
   {
     query: String,
     searchedAt: { type: Date, default: Date.now },
-  },]
+  },],
+ notifications: [
+    {
+      type: { type: String },
+      from: {
+        id: String,
+        username: String,
+        profilePhotoUrl: String,
+      },
+      message: String,
+      createdAt: { type: Date, default: Date.now },
+      isRead: { type: Boolean, default: false },
+    }
+  ]
 });
 
 module.exports = mongoose.model("User", userSchema);

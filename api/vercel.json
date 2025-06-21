@@ -28,6 +28,14 @@
     {
       "src": "/api/get-mystory.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "/api/notification-list.js",
+      "use": "@vercel/node"
+    },
+      {
+      "src": "/api/notification-read.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
@@ -64,6 +72,16 @@
      {
       "src": "/api/get-mystory",
       "dest": "api/get-mystory.js",
+      "timeout": 60
+     },
+     {
+      "src": "/api/notification-list",
+      "dest": "api/notification-list.js",
+      "timeout": 60
+     },
+      {
+      "src": "/api/notification-read",
+      "dest": "api/notification-read.js",
       "timeout": 60
      }
   ]
