@@ -12,6 +12,22 @@
     {
       "src": "/api/recent-search.js",
       "use": "@vercel/node"
+    },
+     {
+      "src": "/api/add-story.js",
+      "use": "@vercel/node"
+    },
+     {
+      "src": "/api/getAll-story.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "/api/view-story.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "/api/get-mystory.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
@@ -29,6 +45,26 @@
       "src": "/api/recent-search",
       "dest": "api/recent-search.js",
       "timeout": 60
-    }
+    },
+     {
+      "src": "/api/add-story",
+      "dest": "api/add-story.js",
+      "timeout": 60
+     },
+     {
+      "src": "/api/getAll-story",
+      "dest": "api/getAll-story.js",
+      "timeout": 60
+     },
+     {
+      "src": "/api/view-story",
+      "dest": "api/view-story.js",
+      "timeout": 60
+     },
+     {
+      "src": "/api/get-mystory",
+      "dest": "api/get-mystory.js",
+      "timeout": 60
+     }
   ]
 }
