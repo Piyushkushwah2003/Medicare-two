@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
     await connectToDatabase();
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findOne({ email: decoded.email });
+    const user = await User.findById(decoded.id);
 
     if (!user) return res.status(404).json({ message: 'User not found' });
 
@@ -31,22 +31,24 @@ module.exports = async (req, res) => {
       user.notifications
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         .map(async (notif) => {
-          const fromId = notif.from.id;
-
-          // Get the most recent status of the 'from' user
-          const isFollowing = user.following.some(u => u.id === fromId);
-          const isFollower = user.followers.some(u => u.id === fromId);
-          const hasSentRequest = user.requestsSent.some(u => u.id === fromId);
-          const hasReceivedRequest = user.requestsReceived.some(u => u.id === fromId);
-
-          let status = 'Follow'; // default
-          if (isFollowing) {
-            status = 'Following';
-          } else if (hasSentRequest) {
-            status = 'Requested';
-          } else if (hasReceivedRequest) {
-            status = 'Follow Back';
+          const fromId = notif?.from?.id;
+          if (!fromId) {
+            return {
+              ...notif._doc,
+              status: 'Unknown',
+            };
           }
+
+          // Determine status based on current user's relationship with sender
+          const isFollowing = user.following.some((u) => u.id === fromId);
+          const isFollower = user.followers.some((u) => u.id === fromId);
+          const hasSentRequest = user.requestsSent.some((u) => u.id === fromId);
+          const hasReceivedRequest = user.requestsReceived.some((u) => u.id === fromId);
+
+          let status = 'Follow';
+          if (isFollowing) status = 'Following';
+          else if (hasSentRequest) status = 'Requested';
+          else if (hasReceivedRequest) status = 'Follow Back';
 
           return {
             ...notif._doc,
@@ -57,7 +59,7 @@ module.exports = async (req, res) => {
 
     return res.status(200).json({ notifications: enhancedNotifications });
   } catch (err) {
-    console.error(err);
+    console.error('Notification fetch error:', err);
     return res.status(500).json({ message: `Server error: ${err.message}` });
   }
 };

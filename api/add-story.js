@@ -91,7 +91,7 @@ module.exports = async (req, res) => {
       const mediaUrl = publicUrlData.publicUrl;
 
       const story = new Story({
-        userId: userData.id,
+        userId: userData._id,
         username: userData.username,
         profilePhoto: userData.profilePhotoUrl,
         mediaUrl,

@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-const Story = require("./models/story"); // update as per your folder
+const Story = require("./models/story");
 const User = require("./models/user");
-const connectToDatabase = require("../utils"); // update this as needed
+const connectToDatabase = require("../utils");
 
 module.exports = async (req, res) => {
   if (req.method !== "GET") {
@@ -22,17 +22,42 @@ module.exports = async (req, res) => {
 
     await connectToDatabase();
 
-    // Get stories that are not expired (e.g., posted within 24 hours)
     const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
     const stories = await Story.find({ createdAt: { $gte: cutoff } })
       .populate("userId", "username profilePhotoUrl")
-      .populate("views", "username profilePhotoUrl") // include viewer info
+      .populate("views", "username profilePhotoUrl")
       .sort({ createdAt: -1 });
 
+    // Group stories by user
+    const grouped = {};
+
+    for (const story of stories) {
+      const uid = story.userId._id.toString();
+
+      if (!grouped[uid]) {
+        grouped[uid] = {
+          userId: uid,
+          username: story.userId.username,
+          profilePhotoUrl: story.userId.profilePhotoUrl,
+          stories: [],
+        };
+      }
+
+      grouped[uid].stories.push({
+        _id: story._id,
+        mediaUrl: story.mediaUrl,
+        createdAt: story.createdAt,
+        expiresAt: story.expiresAt,
+        views: story.views,
+      });
+    }
+
+    const result = Object.values(grouped); // Convert object to array
+
     res.status(200).json({
-      message: "Stories fetched successfully",
-      stories,
+      message: "Stories grouped by user",
+      data: result,
     });
   } catch (error) {
     console.error("Error getting stories:", error);

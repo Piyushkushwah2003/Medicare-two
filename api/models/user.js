@@ -31,7 +31,10 @@ const userSchema = new mongoose.Schema({
       createdAt: { type: Date, default: Date.now },
       isRead: { type: Boolean, default: false },
     }
-  ]
+  ],
+   isOnline: { type: Boolean, default: false },
+  isTypingTo: { type: String, default: null }, // userId you're typing to
+  lastSeen: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("User", userSchema);
