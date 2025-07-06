@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
     const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
     const stories = await Story.find({ createdAt: { $gte: cutoff } })
-      .populate("userId", "username profilePhotoUrl")
+      .populate("userId", "username profilePhotoUrl isVerified")
       .populate("views", "username profilePhotoUrl")
       .sort({ createdAt: -1 });
 
@@ -40,6 +40,7 @@ module.exports = async (req, res) => {
           userId: uid,
           username: story.userId.username,
           profilePhotoUrl: story.userId.profilePhotoUrl,
+          isVerified: story.userId.isVerified || false,
           stories: [],
         };
       }

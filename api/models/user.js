@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
   tokens: [{ token: String }],
   isActive:Boolean,
   isDelete:Boolean,
+   isVerified: {
+    type: Boolean,
+    default: false,
+  },
   followers: [{ id: String, username: String, profilePhotoUrl: String }],
   following: [{ id: String, username: String, profilePhotoUrl: String }],
   requestsSent: [{ id: String, username: String, profilePhotoUrl: String }],

@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
     await connectToDatabase();
 
     const myStories = await Story.find({ username })
-      .populate("userId", "username profilePhotoUrl")
+      .populate("userId", "username profilePhotoUrl isVerified")
       .populate("views", "username profilePhotoUrl")
       .sort({ createdAt: -1 });
 
